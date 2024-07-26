@@ -1,0 +1,27 @@
+{
+  "kind": "collectionType",
+  "collectionName": "payments",
+  "info": {
+    "singularName": "payment",
+    "pluralName": "payments",
+    "displayName": "payment"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "doctor": {
+      "type": "string"
+    },
+    "user": {
+      "type": "string"
+    },
+    "amount": {
+      "type": "biginteger"
+    },
+    "appointmentTime": {
+      "type": "datetime"
+    }
+  }
+}

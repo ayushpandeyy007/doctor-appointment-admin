@@ -941,6 +941,11 @@ export interface ApiDoctorDoctor extends Schema.CollectionType {
       'api::appointment.appointment'
     >;
     email: Attribute.Email;
+    ratings: Attribute.Relation<
+      'api::doctor.doctor',
+      'oneToMany',
+      'api::rating.rating'
+    >;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     publishedAt: Attribute.DateTime;
@@ -1008,6 +1013,77 @@ export interface ApiHospitalHospital extends Schema.CollectionType {
   };
 }
 
+export interface ApiPaymentPayment extends Schema.CollectionType {
+  collectionName: 'payments';
+  info: {
+    singularName: 'payment';
+    pluralName: 'payments';
+    displayName: 'payment';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    doctor: Attribute.String;
+    user: Attribute.String;
+    amount: Attribute.BigInteger;
+    appointmentTime: Attribute.DateTime;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    publishedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'api::payment.payment',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'api::payment.payment',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+  };
+}
+
+export interface ApiRatingRating extends Schema.CollectionType {
+  collectionName: 'ratings';
+  info: {
+    singularName: 'rating';
+    pluralName: 'ratings';
+    displayName: 'Rating';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    review: Attribute.Text;
+    rating: Attribute.Integer;
+    doctor: Attribute.Relation<
+      'api::rating.rating',
+      'manyToOne',
+      'api::doctor.doctor'
+    >;
+    user: Attribute.String;
+    timeDate: Attribute.Date;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    publishedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'api::rating.rating',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'api::rating.rating',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+  };
+}
+
 export interface ApiSliderSlider extends Schema.CollectionType {
   collectionName: 'sliders';
   info: {
@@ -1063,6 +1139,8 @@ declare module '@strapi/types' {
       'api::contact.contact': ApiContactContact;
       'api::doctor.doctor': ApiDoctorDoctor;
       'api::hospital.hospital': ApiHospitalHospital;
+      'api::payment.payment': ApiPaymentPayment;
+      'api::rating.rating': ApiRatingRating;
       'api::slider.slider': ApiSliderSlider;
     }
   }

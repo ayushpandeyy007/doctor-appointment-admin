@@ -65,6 +65,12 @@
     },
     "email": {
       "type": "email"
+    },
+    "ratings": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::rating.rating",
+      "mappedBy": "doctor"
     }
   }
 }
